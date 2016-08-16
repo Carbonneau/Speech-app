@@ -63,6 +63,23 @@
           navigator.getUserMedia(audioConstraints, function(stream) {
               if (window.IsChrome) stream = new window.MediaStream(stream.getAudioTracks());
               audioStream = stream;
+/*
+              //audio streaming feature
+              var audioContext = window.AudioContext;
+              var context = new audioContext();
+              var audioInput = context.createMediaStreamSource(stream);
+              var bufferSize = 2048;
+              // create a javascript node
+              var recorder = context.createJavaScriptNode(bufferSize, 1, 1);
+              // specify the processing function
+              recorder.onaudioprocess = recorderProcess;
+              // connect stream to our recorder
+              audioInput.connect(recorder);
+              // connect our recorder to the previous destination
+              recorder.connect(context.destination);
+*/
+
+
 
               // "audio" is a default type
               recorder = window.RecordRTC(stream, {
@@ -76,6 +93,7 @@
           }, function() {});
       else {
           audio.src = URL.createObjectURL(audioStream);
+        
           audio.muted = true;
           audio.play();
           if (recorder) recorder.startRecording();
