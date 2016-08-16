@@ -16,6 +16,7 @@ coverage
 
 # API keys
 .env
+.particlerc
 
 # Dependency directory
 node_modules

@@ -54,7 +54,7 @@ var hbs = exphbs.create({
 
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 4000);
 app.use(compression());
 app.use(logger('dev'));
 app.use(bodyParser.json());
