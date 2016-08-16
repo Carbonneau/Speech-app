@@ -151,16 +151,4 @@ function displayColor(obj) {
 
 console.log(displayColor(result));
 
-// particle.login({
-//   username: 'jared.carbonneau@email.com',
-//   password : 'weather'
-// });
-//
-// var devicesPr = particle.getDevice({ deviceId: '3d0023001647353236343033', auth: '0b9ba4b67cc96df9f7a1ef1039a994f8cf14fb2d' });
-//
-// fnPr.then(
-//   function(result) {
-//     console.log('Function called succesfully:', data);
-//   }, function(err) {
-//     console.log('An error occurred:', err);
-//   });
+
