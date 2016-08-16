@@ -106,7 +106,7 @@ function main (inputFile, host, callback) {
       // Stream the audio to the Speech API
       fs.createReadStream(inputFile)
         .pipe(toRecognizeRequest)
-        .pipe(call);
+        .pipe(call); // pipe websocket for stream?
     }
     // [END send_request]
   ], callback);

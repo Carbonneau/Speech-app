@@ -58,6 +58,7 @@ function prepareRequest (inputFile, callback) {
     }
     console.log('Got audio file!');
     var encoded = new Buffer(audioFile).toString('base64');
+    console.log(encoded);
     // The below code snippet performs the following tasks:
     // 1 Reads the audio data into a variable.
     // 2 Escapes the binary data into text by encoding it in Base64 (JSON does not support the transmission of binary data).
