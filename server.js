@@ -12,6 +12,7 @@ var exphbs = require('express-handlebars');
 var mongoose = require('mongoose');
 var passport = require('passport');
 
+
 // Load environment variables from .env file
 dotenv.load();
 
@@ -19,11 +20,15 @@ dotenv.load();
 var HomeController = require('./controllers/home');
 var userController = require('./controllers/user');
 var contactController = require('./controllers/contact');
+var testmeetingController = require('./controllers/testmeeting')
 
 // Passport OAuth strategies
 require('./config/passport');
 
 var app = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
 
 
 mongoose.connect(process.env.MONGODB);
@@ -49,7 +54,7 @@ var hbs = exphbs.create({
 
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 4000);
 app.use(compression());
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -87,6 +92,7 @@ app.get('/reset/:token', userController.resetGet);
 app.post('/reset/:token', userController.resetPost);
 app.get('/logout', userController.logout);
 app.get('/unlink/:provider', userController.ensureAuthenticated, userController.unlink);
+app.get('/testmeeting', testmeetingController.index);
 
 // Production error handler
 if (app.get('env') === 'production') {
@@ -96,8 +102,28 @@ if (app.get('env') === 'production') {
   });
 }
 
-app.listen(app.get('port'), function() {
+
+
+
+
+
+http.listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));
 });
+
+io.on('connection', function(socket){
+  console.log("user connected!");
+  socket.on('disconnect', function(){
+    console.log('user disconnected');
+  });
+});
+
+io.on('connection', function(socket){
+  socket.on('chat message', function(msg){
+    io.emit('chat message', msg);
+  });
+});
+
+
 
 module.exports = app;
