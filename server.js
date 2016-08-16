@@ -71,12 +71,17 @@ app.use(function(req, res, next) {
 });
 app.use(express.static(path.join(__dirname, 'public')));
 
+// PAGES
 app.get('/', HomeController.index);
 app.get('/contact', contactController.contactGet);
 app.post('/contact', contactController.contactPost);
+
+// RESOURCES
 app.get('/account', userController.ensureAuthenticated, userController.accountGet);
 app.put('/account', userController.ensureAuthenticated, userController.accountPut);
 app.delete('/account', userController.ensureAuthenticated, userController.accountDelete);
+
+// AUTHENTICATION
 app.get('/signup', userController.signupGet);
 app.post('/signup', userController.signupPost);
 app.get('/login', userController.loginGet);
