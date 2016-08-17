@@ -20,7 +20,8 @@ dotenv.load();
 var HomeController = require('./controllers/home');
 var userController = require('./controllers/user');
 var contactController = require('./controllers/contact');
-var testmeetingController = require('./controllers/testmeeting')
+var testmeetingController = require('./controllers/testmeeting');
+var recognizeController = require('./controllers/recognize');
 
 // Passport OAuth strategies
 require('./config/passport');
@@ -93,6 +94,7 @@ app.post('/reset/:token', userController.resetPost);
 app.get('/logout', userController.logout);
 app.get('/unlink/:provider', userController.ensureAuthenticated, userController.unlink);
 app.get('/testmeeting', testmeetingController.index);
+app.post('/recognize', recognizeController.prepareRequest);
 
 // Production error handler
 if (app.get('env') === 'production') {

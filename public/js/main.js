@@ -3,12 +3,12 @@
 
 
     $('#stop-recording-audio').click( function(event){
-      console.log("jquery", buffer)
+      //console.log("jquery", buffer)
       $.post("/recognize",
       {
         buffer: buffer
       }, function(data, status){
-              alert("Data: " + data + "\nStatus: " + status);
+              //alert("Data: " + data + "\nStatus: " + status);
           })
     })
 });
