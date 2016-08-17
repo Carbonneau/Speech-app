@@ -93,7 +93,7 @@ app.post('/reset/:token', userController.resetPost);
 app.get('/logout', userController.logout);
 app.get('/unlink/:provider', userController.ensureAuthenticated, userController.unlink);
 app.get('/testmeeting', testmeetingController.index);
-app.post('/recognize', recognizeController.prepareRequest);
+app.post('/recognize', recognizeController.main);
 
 // Production error handler
 if (app.get('env') === 'production') {
