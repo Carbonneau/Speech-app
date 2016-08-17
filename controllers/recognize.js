@@ -51,30 +51,26 @@ function getAuthClient (callback) {
 // [END authenticating]
 
 // [START construct_request]
-exports.prepareRequest = function (inputFile, callback) {
-  console.log("yoo", inputFile);
-  fs.readFile(inputFile, function (err, audioFile) {
-    if (err) {
-      return callback(err);
+exports.prepareRequest = function (req, res) {
+  
+  //console.log('Got audio file!');
+  console.log(req.body.buffer);
+  var encoded = req.body.buffer;
+  //console.log(encoded);
+  // The below code snippet performs the following tasks:
+  // 1 Reads the audio data into a variable.
+  // 2 Escapes the binary data into text by encoding it in Base64 (JSON does not support the transmission of binary data).
+  // 3 Constructs a payload for a recognize request.
+  var payload = {
+    config: {
+      encoding: 'LINEAR16',
+      sampleRate: 16000
+    },
+    audio: {
+      content: encoded
     }
-    //console.log('Got audio file!');
-    var encoded = audioFile;
-    //console.log(encoded);
-    // The below code snippet performs the following tasks:
-    // 1 Reads the audio data into a variable.
-    // 2 Escapes the binary data into text by encoding it in Base64 (JSON does not support the transmission of binary data).
-    // 3 Constructs a payload for a recognize request.
-    var payload = {
-      config: {
-        encoding: 'LINEAR16',
-        sampleRate: 16000
-      },
-      audio: {
-        content: encoded
-      }
-    };
-    return callback(null, payload);
-  });
+  };
+
 }
 // [END construct_request]
 
