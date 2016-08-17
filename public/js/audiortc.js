@@ -115,16 +115,24 @@
       recorder.stopRecording(function(url) {
         audio.src = url;
         audio.muted = false;
-        audio.play();
+        //audio.play();
 
         var recordedBlob = recorder.getBlob();
         var buffer = recorder.buffer;
 
-        console.log('recorded blob', recordedBlob);
-        console.log('recorded buffer', buffer);
+        $.post("/recognize",
+        {
+          buffer: buffer
+        }, function(data, status){
+                console.log("jquery post", status)
+                //alert("Data: " + data + "\nStatus: " + status);
+            })
+
+      //  console.log('recorded blob', recordedBlob);
+        //console.log('recorded buffer', buffer);
 
         recorder.getDataURL(function(dataURL) {
-          console.log('data url', dataURL);
+          //console.log('data url', dataURL);
         });
 
 
@@ -144,5 +152,7 @@
     this.innerHTML = 'Pause';
     recorder.resumeRecording();
   };
+
+
 
 })();
