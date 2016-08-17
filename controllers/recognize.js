@@ -73,7 +73,7 @@ function getAuthClient (callback) {
 // [START construct_request]
 function prepareRequest (inputFile, callback) {
     //console.log('Got audio file!');
-    var encoded = inputFile.body.buffer;
+    var encoded = inputFile;
     //console.log(encoded);
     // The below code snippet performs the following tasks:
     // 1 Reads the audio data into a variable.
@@ -92,12 +92,12 @@ function prepareRequest (inputFile, callback) {
 }
 // [END construct_request]
 
-exports.main = function (req, res) { //(inputFile, callback)
+exports.main = function (req, res, callback) { //(inputFile, callback)
   var requestPayload;
 
   async.waterfall([
     function (cb) {
-      prepareRequest(req, cb);
+      prepareRequest(req.body.buffer, cb);
     },
     function (payload, cb) {
       requestPayload = payload;
@@ -107,7 +107,7 @@ exports.main = function (req, res) { //(inputFile, callback)
     // To send the JSON as a POST request to the speech:recognize URL,
     // we need to access a speech resource to perform the recognize() action on it.
     function sendRequest (authClient, cb) {
-      console.log('Analyzing speech...');
+      //console.log('Analyzing speech...');
       speech.syncrecognize({
         auth: authClient,
         resource: requestPayload
@@ -115,13 +115,13 @@ exports.main = function (req, res) { //(inputFile, callback)
         if (err) {
           return cb(err);
         }
-        console.log('result:', JSON.stringify(result, null, 2));
+        //console.log('result:', JSON.stringify(result, null, 2));
         cb(null, result);
       });
     }
     // [END send_request]
     // The JSON response is displayed on the console.
-  ], res.send('hello world')); // ], res);
+  ], callback); // ], res);
 }
 
 // [START run_application]
@@ -135,5 +135,3 @@ if (module === require.main) {
 }
 // [END run_application]
 // [END app]
-
-//exports.main = main;
