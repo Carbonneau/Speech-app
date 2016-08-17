@@ -121,7 +121,7 @@ exports.main = function (req, res) { //(inputFile, callback)
     }
     // [END send_request]
     // The JSON response is displayed on the console.
-  ]); // ], res);
+  ], res.send('hello world')); // ], res);
 }
 
 // [START run_application]
