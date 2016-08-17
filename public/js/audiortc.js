@@ -111,18 +111,21 @@
                 var buffer = recorder.buffer;
 
                 recorder.getDataURL(function(dataURL) {
-                  console.log('data url', dataURL);
-                });
+                  //console.log('data url', dataURL);
 
-                // dataURL.then(function() {
-                //   $.post("/recognize",
-                //   {
-                //     buffer: buffer
-                //   }, function(data, status){
-                //           console.log("jquery post", status)
-                //           //alert("Data: " + data + "\nStatus: " + status);
-                //       })
-                // });
+                  //dataURL.then(function() {
+                    $.post("/recognize",
+                    {
+                      buffer: dataURL
+                    }, function(data, status){
+                            console.log("jquery post", status)
+                            //alert("Data: " + data + "\nStatus: " + status);
+                        }).then(function(text){
+                          console.log("works?", text);
+                        })
+                  //});
+
+                });
 
                 document.getElementById('audio-url-preview').innerHTML = '<a href="' + url + '" target="_blank">Recorded Audio URL</a>';
             });
