@@ -125,7 +125,6 @@
                   //});
 
                 });
-
                 document.getElementById('audio-url-preview').innerHTML = '<a href="' + url + '" target="_blank">Recorded Audio URL</a>';
             });
     };

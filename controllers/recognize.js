@@ -30,7 +30,6 @@ function getAuthClient (callback) {
     if (err) {
       return callback(err);
     }
-
     // The createScopedRequired method returns true when running on GAE or a
     // local developer machine. In that case, the desired scopes must be passed
     // in manually. When the code is  running in GCE or a Managed VM, the scopes
@@ -44,7 +43,6 @@ function getAuthClient (callback) {
         'https://www.googleapis.com/auth/cloud-platform'
       ]);
     }
-
     return callback(null, authClient);
   });
 }
@@ -52,7 +50,6 @@ function getAuthClient (callback) {
 
 // [START construct_request]
 exports.prepareRequest = function (req, res) {
-  
   //console.log('Got audio file!');
   console.log(req.body.buffer);
   var encoded = req.body.buffer;
@@ -70,7 +67,6 @@ exports.prepareRequest = function (req, res) {
       content: encoded
     }
   };
-
 }
 // [END construct_request]
 

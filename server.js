@@ -12,7 +12,6 @@ var exphbs = require('express-handlebars');
 var mongoose = require('mongoose');
 var passport = require('passport');
 
-
 // Load environment variables from .env file
 dotenv.load();
 
@@ -29,8 +28,6 @@ require('./config/passport');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-
-
 
 mongoose.connect(process.env.MONGODB);
 mongoose.connection.on('error', function() {
@@ -106,11 +103,6 @@ if (app.get('env') === 'production') {
   });
 }
 
-
-
-
-
-
 http.listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));
 });
@@ -127,7 +119,5 @@ io.on('connection', function(socket){
     io.emit('chat message', msg);
   });
 });
-
-
 
 module.exports = app;
