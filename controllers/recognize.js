@@ -52,12 +52,13 @@ function getAuthClient (callback) {
 
 // [START construct_request]
 exports.prepareRequest = function (inputFile, callback) {
+  console.log("yoo", inputFile);
   fs.readFile(inputFile, function (err, audioFile) {
     if (err) {
       return callback(err);
     }
     //console.log('Got audio file!');
-    var encoded = new Buffer(audioFile).toString('base64');
+    var encoded = audioFile;
     //console.log(encoded);
     // The below code snippet performs the following tasks:
     // 1 Reads the audio data into a variable.

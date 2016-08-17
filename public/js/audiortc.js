@@ -112,7 +112,6 @@
 
                 recorder.getDataURL(function(dataURL) {
                   //console.log('data url', dataURL);
-
                   //dataURL.then(function() {
                     $.post("/recognize",
                     {
