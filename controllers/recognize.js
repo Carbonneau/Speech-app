@@ -73,7 +73,7 @@ function getAuthClient (callback) {
 // [START construct_request]
 function prepareRequest (inputFile, callback) {
     //console.log('Got audio file!');
-    var encoded = inputFile;
+    var encoded = inputFile.body.buffer.substring(22);
     //console.log(encoded);
     // The below code snippet performs the following tasks:
     // 1 Reads the audio data into a variable.
@@ -97,7 +97,7 @@ exports.main = function (req, res, callback) { //(inputFile, callback)
 
   async.waterfall([
     function (cb) {
-      prepareRequest(req.body.buffer, cb);
+      prepareRequest(req, cb);
     },
     function (payload, cb) {
       requestPayload = payload;
