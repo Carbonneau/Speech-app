@@ -51,29 +51,26 @@ function getAuthClient (callback) {
 // [END authenticating]
 
 // [START construct_request]
-function prepareRequest (inputFile, callback) {
-  fs.readFile(inputFile, function (err, audioFile) {
-    if (err) {
-      return callback(err);
+exports.prepareRequest = function (req, res) {
+  
+  //console.log('Got audio file!');
+  console.log(req.body.buffer);
+  var encoded = req.body.buffer;
+  //console.log(encoded);
+  // The below code snippet performs the following tasks:
+  // 1 Reads the audio data into a variable.
+  // 2 Escapes the binary data into text by encoding it in Base64 (JSON does not support the transmission of binary data).
+  // 3 Constructs a payload for a recognize request.
+  var payload = {
+    config: {
+      encoding: 'LINEAR16',
+      sampleRate: 16000
+    },
+    audio: {
+      content: encoded
     }
-    console.log('Got audio file!');
-    var encoded = new Buffer(audioFile).toString('base64');
-    console.log(encoded);
-    // The below code snippet performs the following tasks:
-    // 1 Reads the audio data into a variable.
-    // 2 Escapes the binary data into text by encoding it in Base64 (JSON does not support the transmission of binary data).
-    // 3 Constructs a payload for a recognize request.
-    var payload = {
-      config: {
-        encoding: 'LINEAR16',
-        sampleRate: 16000
-      },
-      audio: {
-        content: encoded
-      }
-    };
-    return callback(null, payload);
-  });
+  };
+
 }
 // [END construct_request]
 
@@ -92,7 +89,7 @@ function main (inputFile, callback) {
     // To send the JSON as a POST request to the speech:recognize URL,
     // we need to access a speech resource to perform the recognize() action on it.
     function sendRequest (authClient, cb) {
-      console.log('Analyzing speech...');
+      //console.log('Analyzing speech...');
       speech.syncrecognize({
         auth: authClient,
         resource: requestPayload
@@ -100,7 +97,7 @@ function main (inputFile, callback) {
         if (err) {
           return cb(err);
         }
-        console.log('result:', JSON.stringify(result, null, 2));
+        //console.log('result:', JSON.stringify(result, null, 2));
         cb(null, result);
       });
     }
@@ -112,7 +109,7 @@ function main (inputFile, callback) {
 // [START run_application]
 if (module === require.main) {
   if (process.argv.length < 3) {
-    console.log('Usage: node recognize <inputFile>');
+    //console.log('Usage: node recognize <inputFile>');
     process.exit();
   }
   var inputFile = process.argv[2];

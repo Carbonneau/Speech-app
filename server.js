@@ -20,7 +20,8 @@ dotenv.load();
 var HomeController = require('./controllers/home');
 var userController = require('./controllers/user');
 var contactController = require('./controllers/contact');
-var testmeetingController = require('./controllers/testmeeting')
+var testmeetingController = require('./controllers/testmeeting');
+var recognizeController = require('./controllers/recognize');
 
 // Passport OAuth strategies
 require('./config/passport');
@@ -57,8 +58,10 @@ app.set('view engine', 'handlebars');
 app.set('port', process.env.PORT || 4000);
 app.use(compression());
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator());
 app.use(methodOverride('_method'));
 app.use(session({ secret: process.env.SESSION_SECRET, resave: true, saveUninitialized: true }));
@@ -93,6 +96,7 @@ app.post('/reset/:token', userController.resetPost);
 app.get('/logout', userController.logout);
 app.get('/unlink/:provider', userController.ensureAuthenticated, userController.unlink);
 app.get('/testmeeting', testmeetingController.index);
+app.post('/recognize', recognizeController.prepareRequest);
 
 // Production error handler
 if (app.get('env') === 'production') {
