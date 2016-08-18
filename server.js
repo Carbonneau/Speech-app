@@ -115,7 +115,7 @@ if (app.get('env') === 'production') {
 
 http.listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));
-  meetingminuteController.minuteEntry();
+  meetingminuteController.minuteEntry("testing testing testing");
 });
 
 io.on('connection', function(socket){

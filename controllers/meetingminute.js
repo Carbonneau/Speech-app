@@ -1,9 +1,6 @@
 var express = require('express')
 var app = express();
 
-
-exports.minuteEntry = function() {
-  
-
-    console.log("testing");
+exports.minuteEntry = function(transcript, user) {
+    console.log(transcript);
 }
