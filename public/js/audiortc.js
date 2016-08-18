@@ -97,6 +97,7 @@
     };
 
     stopRecordingAudio.onclick = function() {
+        console.log("getting user from socket?", {{user}})
         this.disabled = true;
         recordAudio.disabled = false;
         audio.src = '';

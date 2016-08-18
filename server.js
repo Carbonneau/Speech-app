@@ -22,6 +22,7 @@ var userController = require('./controllers/user');
 var contactController = require('./controllers/contact');
 var testmeetingController = require('./controllers/testmeeting');
 var recognizeController = require('./controllers/recognize');
+//var sentimentanalysis = require('./controllers/sentimentanalysis')
 
 // Passport OAuth strategies
 require('./config/passport');
@@ -29,8 +30,6 @@ require('./config/passport');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-
-
 
 mongoose.connect(process.env.MONGODB);
 mongoose.connection.on('error', function() {
@@ -97,6 +96,7 @@ app.get('/logout', userController.logout);
 app.get('/unlink/:provider', userController.ensureAuthenticated, userController.unlink);
 app.get('/testmeeting', testmeetingController.index);
 app.post('/recognize', recognizeController.prepareRequest);
+//app.get('/meaningcloud', sentimentanalysis.index)
 
 // Production error handler
 if (app.get('env') === 'production') {

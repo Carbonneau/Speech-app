@@ -78,24 +78,32 @@ exports.signupGet = function(req, res) {
  * POST /signup
  */
 exports.signupPost = function(req, res, next) {
+  console.log("signupPost", req.body)
+
   req.assert('name', 'Name cannot be blank').notEmpty();
   req.assert('email', 'Email is not valid').isEmail();
   req.assert('email', 'Email cannot be blank').notEmpty();
   req.assert('password', 'Password must be at least 4 characters long').len(4);
   req.sanitize('email').normalizeEmail({ remove_dots: false });
 
+  console.log("i got through the assert and sanitize stuff")
+
   var errors = req.validationErrors();
+  console.log("i got through the errors declaration")
 
   if (errors) {
+    console.log("error ", errors)
     req.flash('error', errors);
     return res.redirect('/signup');
   }
-
+  console.log("i got through the errors handling")
   User.findOne({ email: req.body.email }, function(err, user) {
+    console.log("i got to user.findOne")
     if (user) {
       req.flash('error', { msg: 'The email address you have entered is already associated with another account.' });
       return res.redirect('/signup');
     }
+
     user = new User({
       name: req.body.name,
       email: req.body.email,
@@ -193,7 +201,7 @@ exports.unlink = function(req, res, next) {
         break;
       case 'github':
           user.github = undefined;
-        break;      
+        break;
       default:
         req.flash('error', { msg: 'Invalid OAuth Provider' });
         return res.redirect('/account');
