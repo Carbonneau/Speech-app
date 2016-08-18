@@ -51,8 +51,9 @@ function getAuthClient (callback) {
 // [START construct_request]
 function prepareRequest (req, callback) {
     //console.log('Got audio file!');
-    console.log('req.body', req.body.buffer);
-    var encoded = req.body.buffer;
+    console.log('reqbody:', req);
+    var encoded = new Buffer(req.buffer).toString('base64');
+    console.log(encoded);
     // The below code snippet performs the following tasks:
     // 1 Reads the audio data into a variable.
     // 2 Escapes the binary data into text by encoding it in Base64 (JSON does not support the transmission of binary data).
@@ -95,7 +96,6 @@ exports.main = function (req, res, callback) {
           return cb(err);
         }
         console.log('result:', JSON.stringify(result, null, 2));
-        console.log('RESULT 2', result);
         cb(null, result);
       });
     }

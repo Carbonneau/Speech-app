@@ -121,16 +121,29 @@
 
         var recordedBlob = recorder.getBlob();
         var buffer = recorder.buffer;
-        console.log('b64?', _arrayBufferToBase64(recorder.buffer));
+        console.log('recordedblog', recordedBlob);
 
-        $.post("/recognize", {
-          buffer: _arrayBufferToBase64(recorder.buffer)
-        }, function(data, status) {
-          console.log("jquery post", status)
-            //alert("Data: " + data + "\nStatus: " + status);
-        }).then(function(text) {
-          console.log("works?", text);
-        })
+        // $.post("/recognize", {
+        //   buffer: buffer
+        // }, function(data, status) {
+        //   console.log("jquery post", status)
+        //     //alert("Data: " + data + "\nStatus: " + status);
+        // }).then(function(text) {
+        //   console.log("text:", text);
+        // })
+
+        var fd = new FormData();
+        fd.append('fname', 'my.wav');
+        fd.append('data', recordedBlob);
+        $.ajax({
+            type: 'POST',
+            url: '/recognize',
+            data: fd,
+            processData: false,
+            contentType: false
+        }).done(function(data) {
+               console.log("got data:", data);
+        });
 
         // recorder.getDataURL(function(dataURL) {
         //   //console.log('data url', dataURL);
