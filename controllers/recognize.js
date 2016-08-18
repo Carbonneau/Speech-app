@@ -51,6 +51,7 @@ function getAuthClient (callback) {
 // [START construct_request]
 function prepareRequest (req, callback) {
     //console.log('Got audio file!');
+    console.log('req.body', req.body.buffer);
     var encoded = req.body.buffer;
     // The below code snippet performs the following tasks:
     // 1 Reads the audio data into a variable.
