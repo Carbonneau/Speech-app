@@ -90,7 +90,7 @@ exports.main = function (req, res, callback) {
         resource: requestPayload
       }, function (err, result) {
         if (err) {
-          console..log('ERROR', err);
+          console.log('ERROR', err);
           return cb(err);
         }
         console.log('result:', JSON.stringify(result, null, 2));
