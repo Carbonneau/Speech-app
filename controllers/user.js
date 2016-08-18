@@ -7,6 +7,7 @@ var User = require('../models/User');
 /**
  * Login required middleware
  */
+
 exports.ensureAuthenticated = function(req, res, next) {
   if (req.isAuthenticated()) {
     next();
@@ -193,7 +194,7 @@ exports.unlink = function(req, res, next) {
         break;
       case 'github':
           user.github = undefined;
-        break;      
+        break;
       default:
         req.flash('error', { msg: 'Invalid OAuth Provider' });
         return res.redirect('/account');

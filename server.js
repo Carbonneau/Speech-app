@@ -22,6 +22,7 @@ var userController = require('./controllers/user');
 var contactController = require('./controllers/contact');
 var testmeetingController = require('./controllers/testmeeting');
 var recognizeController = require('./controllers/recognize');
+var meetingminuteController = require('./controllers/meetingminute');
 
 // Passport OAuth strategies
 require('./config/passport');
@@ -98,6 +99,7 @@ app.get('/unlink/:provider', userController.ensureAuthenticated, userController.
 app.get('/testmeeting', testmeetingController.index);
 app.post('/recognize', recognizeController.prepareRequest);
 
+
 // Production error handler
 if (app.get('env') === 'production') {
   app.use(function(err, req, res, next) {
@@ -113,6 +115,7 @@ if (app.get('env') === 'production') {
 
 http.listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));
+  meetingminuteController.minuteEntry();
 });
 
 io.on('connection', function(socket){
