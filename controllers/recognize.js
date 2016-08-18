@@ -48,33 +48,11 @@ function getAuthClient (callback) {
 }
 // [END authenticating]
 
-// [START construct_request] - displays file
-// function prepareRequest (req, res) {
-//   //console.log('Got audio file!');
-//   console.log(req.body.buffer);
-//   var encoded = req.body.buffer;
-//   //console.log(encoded);
-//   // The below code snippet performs the following tasks:
-//   // 1 Reads the audio data into a variable.
-//   // 2 Escapes the binary data into text by encoding it in Base64 (JSON does not support the transmission of binary data).
-//   // 3 Constructs a payload for a recognize request.
-//   var payload = {
-//     config: {
-//       encoding: 'LINEAR16',
-//       sampleRate: 16000
-//     },
-//     audio: {
-//       content: encoded
-//     }
-//   };
-// }
-// [END construct_request]
-
 // [START construct_request]
 function prepareRequest (inputFile, callback) {
-    //console.log('Got audio file!');
+    console.log('Got audio file!');
     var encoded = inputFile.body.buffer.substring(22);
-    //console.log(encoded);
+    console.log(encoded);
     // The below code snippet performs the following tasks:
     // 1 Reads the audio data into a variable.
     // 2 Escapes the binary data into text by encoding it in Base64 (JSON does not support the transmission of binary data).
@@ -83,7 +61,7 @@ function prepareRequest (inputFile, callback) {
       config: {
         encoding: 'LINEAR16',
         sampleRate: 16000
-      },
+       },
       audio: {
         content: encoded
       }
@@ -115,7 +93,7 @@ exports.main = function (req, res, callback) { //(inputFile, callback)
         if (err) {
           return cb(err);
         }
-        //console.log('result:', JSON.stringify(result, null, 2));
+        console.log('result:', JSON.stringify(result, null, 2));
         cb(null, result);
       });
     }
@@ -125,13 +103,13 @@ exports.main = function (req, res, callback) { //(inputFile, callback)
 }
 
 // [START run_application]
-if (module === require.main) {
-  if (process.argv.length < 3) {
-    //console.log('Usage: node recognize <inputFile>');
-    process.exit();
-  }
-  var inputFile = process.argv[2];
-  main(inputFile, console.log);
-}
+// if (module === require.main) {
+//   if (process.argv.length < 3) {
+//     //console.log('Usage: node recognize <inputFile>');
+//     process.exit();
+//   }
+//   var inputFile = process.argv[2];
+//   main(inputFile, console.log);
+// }
 // [END run_application]
 // [END app]

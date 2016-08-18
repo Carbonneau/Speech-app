@@ -120,7 +120,7 @@
                             console.log("jquery post", status)
                             //alert("Data: " + data + "\nStatus: " + status);
                         }).then(function(text){
-                          console.log("works?", text);
+                          console.log("text:", text);
                         })
                   //});
 
