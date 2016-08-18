@@ -71,10 +71,10 @@ function getAuthClient (callback) {
 // [END construct_request]
 
 // [START construct_request]
-function prepareRequest (inputFile, callback) {
+function prepareRequest (req, callback) {
     //console.log('Got audio file!');
-    var encoded = inputFile.body.buffer.substring(22);
-    //console.log(encoded);
+    var encoded = req.body.buffer;
+    console.log('encoded', req.body);
     // The below code snippet performs the following tasks:
     // 1 Reads the audio data into a variable.
     // 2 Escapes the binary data into text by encoding it in Base64 (JSON does not support the transmission of binary data).
@@ -92,7 +92,7 @@ function prepareRequest (inputFile, callback) {
 }
 // [END construct_request]
 
-exports.main = function (req, res, callback) { //(inputFile, callback)
+exports.main = function (req, res, callback) {
   var requestPayload;
 
   async.waterfall([
@@ -125,13 +125,13 @@ exports.main = function (req, res, callback) { //(inputFile, callback)
 }
 
 // [START run_application]
-if (module === require.main) {
-  if (process.argv.length < 3) {
-    //console.log('Usage: node recognize <inputFile>');
-    process.exit();
-  }
-  var inputFile = process.argv[2];
-  main(inputFile, console.log);
-}
+// if (module === require.main) {
+//   if (process.argv.length < 3) {
+//     //console.log('Usage: node recognize <inputFile>');
+//     process.exit();
+//   }
+//   var inputFile = process.argv[2];
+//   main(inputFile, console.log);
+// }
 // [END run_application]
 // [END app]
