@@ -48,33 +48,10 @@ function getAuthClient (callback) {
 }
 // [END authenticating]
 
-// [START construct_request] - displays file
-// function prepareRequest (req, res) {
-//   //console.log('Got audio file!');
-//   console.log(req.body.buffer);
-//   var encoded = req.body.buffer;
-//   //console.log(encoded);
-//   // The below code snippet performs the following tasks:
-//   // 1 Reads the audio data into a variable.
-//   // 2 Escapes the binary data into text by encoding it in Base64 (JSON does not support the transmission of binary data).
-//   // 3 Constructs a payload for a recognize request.
-//   var payload = {
-//     config: {
-//       encoding: 'LINEAR16',
-//       sampleRate: 16000
-//     },
-//     audio: {
-//       content: encoded
-//     }
-//   };
-// }
-// [END construct_request]
-
 // [START construct_request]
 function prepareRequest (req, callback) {
     //console.log('Got audio file!');
     var encoded = req.body.buffer;
-    console.log('encoded', req.body);
     // The below code snippet performs the following tasks:
     // 1 Reads the audio data into a variable.
     // 2 Escapes the binary data into text by encoding it in Base64 (JSON does not support the transmission of binary data).
@@ -83,7 +60,7 @@ function prepareRequest (req, callback) {
       config: {
         encoding: 'LINEAR16',
         sampleRate: 16000
-      },
+       },
       audio: {
         content: encoded
       }
@@ -115,7 +92,7 @@ exports.main = function (req, res, callback) {
         if (err) {
           return cb(err);
         }
-        //console.log('result:', JSON.stringify(result, null, 2));
+        console.log('result:', JSON.stringify(result, null, 2));
         cb(null, result);
       });
     }
